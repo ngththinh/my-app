@@ -36,3 +36,82 @@
     transform: rotate(360deg);
   }
 }
+.navbar{
+  background-color: #333;
+  color: #fff;
+}
+.navbar-brand{
+  font-size: 2.25em;
+}
+.btn{
+  color: white;
+  background-color: red;
+  border: none;
+}
+.bg-light {
+  background-color: #333333 !important;
+}
+.content{
+  position: absolute;
+  top:80%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  text-align: center;
+}
+.our-menu{
+  color: #fff;
+}
+.book{
+  color: #fff;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 0px;
+}
+.all{
+   margin-left: 150px;
+   margin-right: 150px;
+}
+.sendmess{
+  margin-top: 30px;
+  background-color: #FFC106;
+  color: #fff;
+  width: 170px;
+  border-radius: 5px;
+  height: 40px;
+}
+.our-menu{
+  margin-top: 40px;
+}
+.btbuy{
+  background-color: #333333;
+  color: #fff;
+  padding: 5px 105px;
+  border-radius: 5px;
+}
+.navbar-light .navbar-brand {
+  color: #fff;
+}
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+  color: #fff;
+}
+.navbar-light .navbar-nav .nav-link {
+  color: #fff; 
+}
+.card{
+  position: relative;
+}
+.sale{
+  position: absolute;
+  color:  #333;
+  padding: 2px 30px;
+  background-color: yellow;
+  font-weight: 700;
+}
+.new-price{
+  color: #FFC106;
+  font-weight: 700;
+}
+.form-control {
+  line-height: 2.5;
+}
