@@ -10,11 +10,96 @@ import pizza3 from './images/pizza3.jpg'
 import pizza4 from './images/pizza4.jpg'
 import pizza5 from './images/pizza5.jpg'
 import { FaSearch } from "react-icons/fa"
+import { useState } from 'react'
+import { Button, Badge, Modal, Row } from 'react-bootstrap'
+import {useEffect } from 'react'
+import { CgEnter } from 'react-icons/cg';
 
+const products = [
+  {
+    name: 'Margherita Pizza',
+    image: menu1,
+    Price: 40,
+    salePrice: 24,
+  },
+  {
+    name: 'Mushroom Pizza',
+    image: menu2,
+    price: 40,
+  }, {
+    name: 'Hawaiian Pizza',
+    image: menu3,
+    price: 40,
+  },
+  {
+    name: 'Pesto Pizza',
+    image: menu4,
+    price: 40,
+    salePrice: 30
+  },
+]
 function App() {
+  const [cart, setCart] = useState([]);
+  const [flag, setFlag] = useState(false);
+  const [quantityProduct, setQuantityProduct] = useState(0);
+
+  console.log(cart);
+
+  const sumQuantityProduct = (arr) => {
+    return arr.reduce((quantity, item) => {
+      return quantity = quantity + item.count;
+    }, 0);
+  }
+
+  useEffect(() => {
+    const quantity = sumQuantityProduct(cart);
+    setQuantityProduct(quantity)
+  }, [cart]);
+
+  const addProductToCart = (product) => {
+    if (!product) return null;
+    if (cart.indexOf(product) !== -1) {
+      const index = cart.indexOf(product);
+      const arr = [...cart];
+      arr[index].count = arr[index].count + 1;
+      setCart(arr);
+    }
+    else {
+      const arr = [...cart];
+      product.count = 1;
+      arr.push(product);
+      setCart(arr);
+    }
+
+  };
+
+  const handleIncrease = (product) => {
+    const index = cart.indexOf(product);
+    const arr = [...cart];
+    arr[index].count = arr[index].count + 1;
+    setCart(arr);
+  };
+
+  const handleDecrease = (product) => {
+    const index = cart.indexOf(product);
+    const arr = [...cart];
+    arr[index].count = arr[index].count - 1;
+
+    const newArr = arr.filter((product) => {
+      return product.count !== 0;
+    });
+
+    console.log('arr', newArr)
+    setCart(newArr);
+  };
+
+
+  const handleBuy = (product) => {
+    addProductToCart(product);
+  };
+  
   return (
     <>
-    
       <nav class="navbar navbar-expand-lg navbar-light bg-light all">
         <h2 class="navbar-brand" href="#">Pizza House</h2>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +122,9 @@ function App() {
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><FaSearch /></button>
           </form>
+          <button type="button" className="btn btn-primary ml-2" data-toggle="modal" data-target="#exampleModal">
+            Items: <span className="badge badge-secondary badge-dark">{quantityProduct}</span>
+          </button>
         </div>
       </nav>
       <div>
@@ -79,52 +167,25 @@ function App() {
           </div>
         </div>
       </div>
-      <div class="menu all">
-        <h2 class="our-menu">Our Menu</h2>
-        <div class="row row-cols-1 row-cols-md-4">
-          <div class="col mb-3">
-            <div class="card">
-              <div className="sale">Sale</div>
-              <img src={menu1} class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Margherita Pizza</h5>
-                <p class="card-text"><del>$40.00</del><span className='new-price'>$24.00</span></p>
-                <a href="#" class="btbuy">Buy</a>
+      <div className="menu-card all">
+        <h1 className="menu-title">Our Menu</h1>
+        <div className="card-group">
+
+          {products.map((item, index) => {
+            return (
+              <div className="card" key={index}>
+                <div className="sale">New</div>
+                <img src={item.image} className="card-img-top" alt="..." />
+                <div className="card-body">
+                  <h5 className="card-title">{item.name}</h5>
+                  <p className="card-text"><span className="older-price">${item.price}.00</span>
+                    {item.salePrice ? (<span className="new-price"> ${item?.salePrice}.00</span>) : <></>}
+                  </p>
+                  <button className="btn-lg btn-block btn-dark" onClick={() => { handleBuy(item) }}>Buy</button>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="col mb-3">
-            <div class="card">
-              <img src={menu2} class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Mushroom Pizza</h5>
-                <p class="card-text">$25.00</p>
-                <a href="#" class="btbuy">Buy</a>
-              </div>
-            </div>
-          </div>
-          <div class="col mb-3">
-            <div class="card">
-            <div className="sale">New</div>
-              <img src={menu3} class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Hawaiian Pizza</h5>
-                <p class="card-text">$30.00</p>
-                <a href="#" class="btbuy">Buy</a>
-              </div>
-            </div>
-          </div>
-          <div class="col mb-3">
-            <div class="card">
-            <div className="sale">Sale</div>
-              <img src={menu4} class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Pesto Pizza</h5>
-                <p class="card-text"><del>$50.00</del><span className='new-price'>$30.00</span></p>
-                <a href="#" class="btbuy">Buy</a>
-              </div>
-            </div>
-          </div>
+            )
+          })}
         </div>
       </div>
       <div class="all">
@@ -156,6 +217,53 @@ function App() {
           <button type="submit" class="sendmess">Send Message</button>
         </form>
       </div>
+      <div>
+      <div
+     className="modal show"
+     style={{ display: 'block', position: 'initial' }}
+   >
+       <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">Cart</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body container" style={{maxHeight: '80px'}}>
+              {cart.map((product, index) => {
+                return (
+                  <div className='row cart-item' key={index} style={{justifyContent: 'space-between'}}>
+                    <div className="card mb-3 col-md-4 cart-item-card"  style={{padding: '0', margin: '0 0 0 15px'}}>
+                      <div className="row no-gutters cart-item-detail">
+                        <div className="col-md-4" style={{width: '100px', height: '100px'}}>
+                          <img src={product.image} alt="..."  style={{width: '50px', height: '50px'}}/>
+                        </div>
+                        <div className="col-md-8">
+                          <div className="card-body" style={{padding: '0'}}>
+                            <p className="card-title" style={{margin: '0 0 0 10px'}}>{product.name}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className='cart-item-addition-quantity col-md-3'>{product.count}</div>
+                    <div className='cart-item-addition col-md-3' style={{display: 'flex', justifyContent: 'center', gap: '20px'}}>
+                      <button className='cart-item-addition-increase btn btn-plus ' style={{height: '40px', width: '50px'}} onClick={() => { handleIncrease(product) }}> + </button>
+                      <button className='cart-item-addition-decrease btn btn-danger' style={{height: '40px' , width: '50px'}} onClick={() => { handleDecrease(product) }}> - </button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
     </>
   );
 }
