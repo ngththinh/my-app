@@ -45,7 +45,7 @@
 }
 .btn-outline-success{
   color: white;
-  background-color: red;
+  background-color: red !important;
   border: none;
 }
 .bg-light {
@@ -125,4 +125,49 @@
 }
 .btn-plus{
   background-color: #0069D9;
+}
+.cart-item {
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #333 ;
+  gap: 1rem;
+}
+
+.cart-item-card {
+  padding: 0;
+  border: 0;
+  margin-left: 1.5rem;
+}
+
+.cart-item-card img {
+  width: 50px;
+  
+}
+
+.cart-item-detail {
+  display: flex;
+  align-items: center;
+}
+
+.cart-item-addition {
+  margin-bottom: 1rem;
+  display: flex;
+  height: 100%;
+  gap: 20%;
+}
+
+.cart-item-addition button {
+ border-radius: 8px;
+ width: 50%;
+ padding: 2% 2%;
+ font-size: 17px;
+ font-weight: 700;
+}
+
+.cart-items-quantity {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+.close-btn{
+  background-color: #090202 !important;
 }
