@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { loggedInUser } from '../App';
+import {loggedInUser} from '../App'
 import { FiSearch } from "react-icons/fi";
 
 function Header({ brand, handleOnClick }) {

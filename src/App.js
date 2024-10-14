@@ -10,10 +10,10 @@ import { useState } from 'react'
 import {useEffect } from 'react'
 import Cards from './components/Cards';
 import Carousel from './components/Carousel';
-import Header from './components/Header'
 import Cart from './components/Cart';
 import Footer from './components/Footer';
 import { createContext } from 'react';
+import Header from './components/Header';
 const images = [
   pizza1,
   pizza2,
